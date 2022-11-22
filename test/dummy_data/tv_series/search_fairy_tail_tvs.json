@@ -1,0 +1,22 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/8m7M1j0r09miz9f9qgDLrY571g6.jpg",
+      "first_air_date": "2009-10-12",
+      "genre_ids": [10759, 16, 35, 10765, 9648],
+      "id": 46261,
+      "name": "Fairy Tail",
+      "origin_country": ["JP"],
+      "original_language": "ja",
+      "original_name": "フェアリーテイル",
+      "overview": "Lucy is a 17-year-old girl, who wants to be a full-fledged mage. One day when visiting Harujion Town, she meets Natsu, a young man who gets sick easily by any type of transportation. But Natsu isn't just any ordinary kid, he's a member of one of the world's most infamous mage guilds: Fairy Tail.",
+      "popularity": 43.606,
+      "poster_path": "/jsYTctFnK8ewomnUgcwhmsTkOum.jpg",
+      "vote_average": 7.9,
+      "vote_count": 793
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 1
+}
