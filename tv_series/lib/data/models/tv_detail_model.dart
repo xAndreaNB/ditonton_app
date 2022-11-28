@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';

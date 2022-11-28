@@ -21,13 +21,6 @@ export 'domain/usecases/get_watchlist_tvs.dart';
 export 'domain/usecases/remove_watchlist_tv.dart';
 export 'domain/usecases/save_watchlist_tv.dart';
 export 'domain/usecases/search_tvs.dart';
-export 'presentation/provider/on_the_air_tvs_notifier.dart';
-export 'presentation/provider/popular_tvs_notifier.dart';
-export 'presentation/provider/top_rated_tvs_notifier.dart';
-export 'presentation/provider/tv_detail_notifier.dart';
-export 'presentation/provider/tv_list_notifier.dart';
-export 'presentation/provider/tv_search_notifier.dart';
-export 'presentation/provider/watchlist_tv_notifier.dart';
 
 export 'presentation/pages/home_tv_page.dart';
 export 'presentation/pages/on_the_air_tvs_page.dart';

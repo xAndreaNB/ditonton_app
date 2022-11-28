@@ -4,7 +4,7 @@ import 'package:movies/data/models/movie_model.dart';
 class MovieResponseModel extends Equatable {
   final List<MovieModel> movieList;
 
-  MovieResponseModel({required this.movieList});
+  const MovieResponseModel({required this.movieList});
 
   factory MovieResponseModel.fromJson(Map<String, dynamic> json) =>
       MovieResponseModel(

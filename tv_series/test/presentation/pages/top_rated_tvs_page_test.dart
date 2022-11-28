@@ -1,49 +1,48 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
-import 'package:tv_series/domain/entities/tv.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:tv_series/presentation/bloc/tv_bloc.dart';
 import 'package:tv_series/presentation/pages/top_rated_tvs_page.dart';
-import 'package:tv_series/presentation/provider/top_rated_tvs_notifier.dart';
+import 'package:tv_series/presentation/widgets/tv_card_list.dart';
 
-import 'top_rated_tvs_page_test.mocks.dart';
+import '../../dummy_data/tv_series/dummy_objects_tvs.dart';
+import '../../helpers/bloc_helper.dart';
 
-@GenerateMocks([TopRatedTVsNotifier])
 void main() {
-  late MockTopRatedTVsNotifier mockNotifier;
+  late MockGetTopRatedTVsBloc mockGetTopRatedTVsBloc;
 
-  setUp(() {
-    mockNotifier = MockTopRatedTVsNotifier();
+  setUpAll(() {
+    mockGetTopRatedTVsBloc = MockGetTopRatedTVsBloc();
+    registerFallbackValue(TVEventFake());
+    registerFallbackValue(TVStateFake());
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TopRatedTVsNotifier>.value(
-      value: mockNotifier,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<GetTopRatedTVsBloc>(create: (_) => mockGetTopRatedTVsBloc),
+      ],
       child: MaterialApp(
         home: body,
       ),
     );
   }
 
-  testWidgets('Page should display progress bar when loading',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+  testWidgets('Page should display center progress bar when loading', (WidgetTester tester) async {
+    when(() => mockGetTopRatedTVsBloc.state).thenReturn(LoadingTV());
 
-    final progressFinder = find.byType(CircularProgressIndicator);
+    final progressBarFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
 
     await tester.pumpWidget(_makeTestableWidget(TopRatedTVsPage()));
 
     expect(centerFinder, findsOneWidget);
-    expect(progressFinder, findsOneWidget);
+    expect(progressBarFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display when data is loaded',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.tvs).thenReturn(<TV>[]);
+  testWidgets('Page should display ListView when data is loaded', (WidgetTester tester) async {
+    when(() => mockGetTopRatedTVsBloc.state).thenReturn(TVHasData(testTVList));
 
     final listViewFinder = find.byType(ListView);
 
@@ -52,12 +51,32 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display text with message when Error',
-      (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+  testWidgets('Page should display TVCard when data is loaded', (WidgetTester tester) async {
+    when(() => mockGetTopRatedTVsBloc.state).thenReturn(TVHasData(testTVList));
 
-    final textFinder = find.byKey(Key('error_message'));
+    final tvCardFinder = find.byType(TVCard);
+
+    await tester.pumpWidget(_makeTestableWidget(TopRatedTVsPage()));
+
+    expect(tvCardFinder, findsOneWidget);
+
+    await tester.tap(find.byType(TVCard));
+  });
+
+  testWidgets('Page should display text with message when Error', (WidgetTester tester) async {
+    when(() => mockGetTopRatedTVsBloc.state).thenReturn(const ErrorTV('error'));
+
+    final textFinder = find.text('error');
+
+    await tester.pumpWidget(_makeTestableWidget(TopRatedTVsPage()));
+
+    expect(textFinder, findsOneWidget);
+  });
+
+  testWidgets('Page should display text with message when empty', (WidgetTester tester) async {
+    when(() => mockGetTopRatedTVsBloc.state).thenReturn(EmptyTV());
+
+    final textFinder = find.byKey(const Key('empty'));
 
     await tester.pumpWidget(_makeTestableWidget(TopRatedTVsPage()));
 

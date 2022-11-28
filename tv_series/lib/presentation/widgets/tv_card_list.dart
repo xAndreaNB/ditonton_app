@@ -6,7 +6,7 @@ import 'package:tv_series/domain/entities/tv.dart';
 class TVCard extends StatelessWidget {
   final TV tv;
 
-  TVCard(this.tv);
+  const TVCard(this.tv);
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +55,15 @@ class TVCard extends StatelessWidget {
                 bottom: 16,
               ),
               child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
                   width: 80,
-                  placeholder: (context, url) => Center(
-                    child: const CircularProgressIndicator(),
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
           ],

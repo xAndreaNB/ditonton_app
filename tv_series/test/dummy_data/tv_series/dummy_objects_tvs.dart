@@ -7,9 +7,9 @@ import 'package:tv_series/data/models/tv_table.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 import 'package:tv_series/domain/entities/tv_detail.dart';
 
-final testTVModel = TVModel(
+const testTVModel = TVModel(
   backdropPath: '/path.jpg',
-  genreIds: const [1, 2, 3, 4],
+  genreIds: [1, 2, 3, 4],
   id: 1,
   originalName: 'Original Name',
   overview: "Overview",
@@ -37,7 +37,7 @@ final testTV = TV(
 
 final testTVList = [testTV];
 
-final testTVDetail = TVDetail(
+const testTVDetail = TVDetail(
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],
   id: 1,
@@ -71,7 +71,7 @@ final testTVMap = {
   'name': 'name',
 };
 
-final testTVResponseModel = TVResponseModel(tvList: <TVModel>[testTVModel]);
+const testTVResponseModel = TVResponseModel(tvList: <TVModel>[testTVModel]);
 
 const testTVDetailResponse = TVDetailResponse(
   backdropPath: 'backdropPath',

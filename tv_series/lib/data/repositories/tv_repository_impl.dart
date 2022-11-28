@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:core/core.dart';
-import 'package:core/utils/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tv_series/data/datasources/tv_local_data_source.dart';
 import 'package:tv_series/data/datasources/tv_remote_data_source.dart';
@@ -100,7 +98,7 @@ class TVRepositoryImpl implements TVRepository {
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 

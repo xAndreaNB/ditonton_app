@@ -1,8 +1,10 @@
+// ignore_for_file: unnecessary_this
+
 import 'package:equatable/equatable.dart';
 import 'package:tv_series/domain/entities/tv.dart';
 
 class TVModel extends Equatable {
-  TVModel({
+  const TVModel({
     required this.backdropPath,
     required this.genreIds,
     required this.id,
