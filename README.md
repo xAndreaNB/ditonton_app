@@ -1,3 +1,18 @@
+<p align="center">
+  <a href="https://codemagic.io/apps/637c6470178409ed091beb2e/637c6470178409ed091beb2d/latest_build"></a><img src="https://api.codemagic.io/apps/637c6470178409ed091beb2e/637c6470178409ed091beb2d/status_badge.svg" alt="Codemagic build status"></a>
+</p>
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/68180390/204479494-770ed282-aef0-4e4e-802c-4fc3064c6852.png" alt="Codemagic build" />
+  </br>
+</p>
+
+![Analytics 1 - Andrea Nataya Bantoro](https://user-images.githubusercontent.com/68180390/204479823-d8131dc8-32c1-4df1-9a48-7614e1c4284c.png)
+
+![Analytics 2 - Andrea Nataya Bantoro](https://user-images.githubusercontent.com/68180390/204479897-bbb615a9-2250-4a52-acf3-72baa34f61dc.png)
+
+![Crashlytics - Andrea Nataya Bantoro](https://user-images.githubusercontent.com/68180390/204479997-b9319d3e-850c-4a11-9ce3-1b0feab46c47.png)
+
 # a199-flutter-expert-project
 
 Repository ini merupakan starter project submission kelas Flutter Expert Dicoding Indonesia.
