@@ -29,7 +29,7 @@ void main() {
     );
   }
 
-  testWidgets('Page should display center progress bar when loading', (WidgetTester tester) async {
+  testWidgets('Page should display a center progress bar when loading', (WidgetTester tester) async {
     when(() => mockGetPopularTVsBloc.state).thenReturn(LoadingTV());
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
@@ -41,7 +41,7 @@ void main() {
     expect(progressBarFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display ListView when data is loaded', (WidgetTester tester) async {
+  testWidgets('Page should display a TVList when data is loaded', (WidgetTester tester) async {
     when(() => mockGetPopularTVsBloc.state).thenReturn(TVHasData(testTVList));
 
     final listViewFinder = find.byType(ListView);
@@ -51,7 +51,7 @@ void main() {
     expect(listViewFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display TVCard when data is loaded', (WidgetTester tester) async {
+  testWidgets('Page should display a TVCard when data is loaded', (WidgetTester tester) async {
     when(() => mockGetPopularTVsBloc.state).thenReturn(TVHasData(testTVList));
 
     final tvCardFinder = find.byType(TVCard);
@@ -59,24 +59,12 @@ void main() {
     await tester.pumpWidget(_makeTestableWidget(PopularTVsPage()));
 
     expect(tvCardFinder, findsOneWidget);
-
-    await tester.tap(find.byType(TVCard));
   });
 
   testWidgets('Page should display text with message when Error', (WidgetTester tester) async {
-    when(() => mockGetPopularTVsBloc.state).thenReturn(const ErrorTV('error'));
+    when(() => mockGetPopularTVsBloc.state).thenReturn(const ErrorTV('Failed'));
 
-    final textFinder = find.text('error');
-
-    await tester.pumpWidget(_makeTestableWidget(PopularTVsPage()));
-
-    expect(textFinder, findsOneWidget);
-  });
-
-  testWidgets('Page should display text with message when empty', (WidgetTester tester) async {
-    when(() => mockGetPopularTVsBloc.state).thenReturn(EmptyTV());
-
-    final textFinder = find.byKey(const Key('empty'));
+    final textFinder = find.text('Failed');
 
     await tester.pumpWidget(_makeTestableWidget(PopularTVsPage()));
 

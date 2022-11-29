@@ -34,7 +34,8 @@ void main() {
     );
   }
 
-  testWidgets('Watchlist button should display add icon when tv not added to watchlist', (WidgetTester tester) async {
+  testWidgets('Watchlist button should display an add icon when TV not added to watchlist', (WidgetTester tester) async {
+    when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(TVHasData(testTVList));
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
 
@@ -45,7 +46,7 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  testWidgets('Watchlist button should dispay check icon when tv is added to wathclist', (WidgetTester tester) async {
+  testWidgets('Watchlist button should display a check icon when TV is added to watchlist', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(true));
@@ -56,7 +57,7 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  testWidgets('Watchlist button should display Snackbar when added to watchlist', (WidgetTester tester) async {
+  testWidgets('Watchlist button should display a Snackbar when added to watchlist', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
@@ -74,7 +75,7 @@ void main() {
     expect(find.text(GetWatchlistTVsBloc.watchlistAddSuccessMessage), findsOneWidget);
   });
 
-  testWidgets('Watchlist button should display Snackbar when removed from watchlist', (WidgetTester tester) async {
+  testWidgets('Watchlist button should display a Snackbar when removed from watchlist', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(true));
@@ -92,7 +93,7 @@ void main() {
     expect(find.text(GetWatchlistTVsBloc.watchlistRemoveSuccessMessage), findsOneWidget);
   });
 
-  testWidgets('Watchlist button should display AlertDialog when add to watchlist failed', (WidgetTester tester) async {
+  testWidgets('Watchlist button should display a AlertDialog when add to watchlist failed', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const ErrorTV('Failed'));
@@ -109,7 +110,7 @@ void main() {
     expect(find.byType(AlertDialog), findsOneWidget);
   });
 
-  testWidgets('loading progress bar', (WidgetTester tester) async {
+  testWidgets('Loading progress bar', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(LoadingTV());
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(LoadingTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
@@ -121,7 +122,7 @@ void main() {
     expect(circularProgressIndicator, findsOneWidget);
   });
 
-  testWidgets('recomendation tv loading progress bar', (WidgetTester tester) async {
+  testWidgets('Recommendation TV loading progress bar', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(LoadingTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
@@ -133,47 +134,35 @@ void main() {
     expect(circularProgressIndicator, findsWidgets);
   });
 
-  testWidgets('recomendation tv error', (WidgetTester tester) async {
+  testWidgets('Recomendation TV error', (WidgetTester tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
-    when(() => mockGetTVRecommendationsBloc.state).thenReturn(const ErrorTV('recommendation error'));
+    when(() => mockGetTVRecommendationsBloc.state).thenReturn(const ErrorTV('Recommendation Error'));
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
 
     await tester.pumpWidget(_makeTestableWidget(const TVDetailPage(id: 1)));
 
-    expect(find.text('recommendation error'), findsOneWidget);
+    expect(find.text('Recommendation Error'), findsOneWidget);
   });
 
-  testWidgets('recomendation tv empty', (WidgetTester tester) async {
-    when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
-    when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
-    when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
-
-    await tester.pumpWidget(_makeTestableWidget(const TVDetailPage(id: 1)));
-
-    expect(find.byKey(const Key('empty_recommendation')), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.arrow_back));
-    await tester.pump();
-  });
-
-  testWidgets('should be navigate to TVDetailPage when Image tap', (tester) async {
+  testWidgets('Should be navigate to TVDetailPage when Image tap', (tester) async {
     when(() => mockGetTVDetailBloc.state).thenReturn(const TVDetailHasData(testTVDetail));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(TVHasData(testTVList));
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
+    await tester.pumpWidget(_makeTestableWidget(const TVDetailPage(id: 1)));
     final typeCachedNetworkImage = find.byType(CachedNetworkImage);
 
-    expect(typeCachedNetworkImage, findsOneWidget);
+    expect(typeCachedNetworkImage, findsAtLeastNWidgets(1));
 
-    await tester.tap(typeCachedNetworkImage);
+    await tester.tap(typeCachedNetworkImage.first);
   });
 
-  testWidgets('should be text error when be error load', (tester) async {
-    when(() => mockGetTVDetailBloc.state).thenReturn(const ErrorTV('error'));
+  testWidgets('Should be text error when be error load', (tester) async {
+    when(() => mockGetTVDetailBloc.state).thenReturn(const ErrorTV('Failed'));
     when(() => mockGetTVRecommendationsBloc.state).thenReturn(EmptyTV());
     when(() => mockGetWatchlistTVsBloc.state).thenReturn(const WatchlistStatusTV(false));
 
     await tester.pumpWidget(_makeTestableWidget(const TVDetailPage(id: 1)));
 
-    expect(find.text('error'), findsOneWidget);
+    expect(find.text('Failed'), findsOneWidget);
   });
 }

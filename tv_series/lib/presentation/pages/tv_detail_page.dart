@@ -227,7 +227,7 @@ class DetailContent extends StatelessWidget {
                                     ),
                                   );
                                 } else {
-                                  return Container();
+                                  return const Center(child: Text('Recommendation Error'),);
                                 }
                               },
                             ),

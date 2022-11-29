@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tv_series/domain/entities/tv.dart';
@@ -38,6 +40,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.movie),
               title: const Text('Movies'),
               onTap: () {
+                FirebaseAnalytics.instance.logScreenView(screenName: 'Home Movie Page');
                 Navigator.pushNamed(context, HOME_MOVIE_ROUTE);
               },
             ),
@@ -45,6 +48,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist Movie'),
               onTap: () {
+                FirebaseAnalytics.instance.logScreenView(screenName: 'Watchlist Movie Page');
                 Navigator.pushNamed(context, WATCHLIST_MOVIE_ROUTE);
               },
             ),
@@ -52,6 +56,7 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.tv),
               title: const Text('TV Series'),
               onTap: () {
+                FirebaseAnalytics.instance.logScreenView(screenName: 'TV Series Page');
                 Navigator.pop(context);
               },
             ),
@@ -59,15 +64,24 @@ class _HomeTVPageState extends State<HomeTVPage> {
               leading: const Icon(Icons.save_alt),
               title: const Text('Watchlist TV'),
               onTap: () {
+                FirebaseAnalytics.instance.logScreenView(screenName: 'Watchlist TV Series Page');
                 Navigator.pushNamed(context, WATCHLIST_TV_ROUTE);
               },
             ),
             ListTile(
               onTap: () {
+                FirebaseAnalytics.instance.logScreenView(screenName: 'About Page');
                 Navigator.pushNamed(context, ABOUT_ROUTE);
               },
               leading: const Icon(Icons.info_outline),
               title: const Text('About'),
+            ),
+            ListTile(
+              onTap: () {
+                FirebaseCrashlytics.instance.crash();
+              },
+              leading: const Icon(Icons.error),
+              title: const Text('Crash Test'),
             ),
           ],
         ),

@@ -1,6 +1,9 @@
 import 'package:about/about_page.dart';
 import 'package:core/core.dart';
 import 'package:core/utils/ssl_pinning.dart';
+import 'package:ditonton/firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/movies.dart';
 import 'package:movies/presentation/bloc/movie_bloc.dart';
@@ -11,8 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAnalytics.instance.logAppOpen();
   await HttpSSLPinning.init();
   di.init();
   runApp(MyApp());

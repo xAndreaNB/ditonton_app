@@ -29,7 +29,7 @@ void main() {
     );
   }
 
-  testWidgets('Page should display progress bar when loading', (WidgetTester tester) async {
+  testWidgets('Page should display a progress bar when loading', (WidgetTester tester) async {
     when(() => mockGetTopRatedMoviesBloc.state).thenReturn(LoadingMovie());
 
     final progressFinder = find.byType(CircularProgressIndicator);
@@ -41,7 +41,7 @@ void main() {
     expect(progressFinder, findsOneWidget);
   });
 
-  testWidgets('Page should display when data is loaded', (WidgetTester tester) async {
+  testWidgets('Page should display a MovieList when data is loaded', (WidgetTester tester) async {
     when(() => mockGetTopRatedMoviesBloc.state).thenReturn(MovieHasData(testMovieList));
 
     final listViewFinder = find.byType(ListView);
@@ -62,7 +62,7 @@ void main() {
   });
 
   testWidgets('Page should display text with message when Error', (WidgetTester tester) async {
-    when(() => mockGetTopRatedMoviesBloc.state).thenReturn(const ErrorMovie('error'));
+    when(() => mockGetTopRatedMoviesBloc.state).thenReturn(const ErrorMovie('Failed'));
 
     final textFinder = find.byKey(const Key('error_message'));
 
